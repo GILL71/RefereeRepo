@@ -11,11 +11,15 @@ import  UIKit
 
 class SettingsViewController: UITableViewController {
     
+    @IBOutlet weak var connectionLabel: UILabel!
     @IBOutlet weak var ColorControl: UISegmentedControl!
- 
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         ColorControl.tintColor = UIColor.blue
+       /* SocketIOManager.sharedInstance.connectToServerWithNickname(nickname: "jackson") { (<#[[String : AnyObject]]?#>) in
+            connectionLabel.textColor = UIColor.blue
+        }*/
     }
     
     @IBAction func segmentChanged(_ sender: UISegmentedControl) {
