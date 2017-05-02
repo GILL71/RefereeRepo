@@ -13,16 +13,28 @@ class FightController: UIViewController {
     
     var timer: Timer?
     var currentTime = 0
+    var num, color: String?
     
-    @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var stopwatchDisplay: UILabel!
+    @IBOutlet weak var startButton: UIButton!
     
-    @IBAction func startStopAction(_ sender: UIButton) {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        startButton.layer.cornerRadius = 42
+        num = "1"
+        color = "R"
+    }
+    
+    @IBAction func stopStartAction(_ sender: UIButton) {
         if timer != nil {
+            self.tabBarController?.tabBar.items?[0].isEnabled = true
+            self.tabBarController?.tabBar.items?[2].isEnabled = true
             sender.setTitle("Start", for: .normal)
             timer?.invalidate()
             timer = nil
         } else {
+            self.tabBarController?.tabBar.items?[0].isEnabled = false
+            self.tabBarController?.tabBar.items?[2].isEnabled = false
             sender.setTitle("Stop", for: .normal)
             timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true, block: { _ in
                 self.currentTime += 1
@@ -32,15 +44,19 @@ class FightController: UIViewController {
             })
         }
     }
-    @IBAction func onePointAction(_ sender: Any) {
-        
-        
-        
+    
+    
+    @IBAction func onePointAction(_ sender: UIButton) {
+        send(point: "1")
     }
     
-    @IBAction func towPointsAction(_ sender: Any) {
-        
-        
-        
+    @IBAction func twoPointsAction(_ sender: UIButton) {
+        send(point: "2")
+    }
+    
+    func send(point: String) {
+        var message: String
+        message = num! + color! + point
+        SocketIOManager.sharedInstance.send(message: message)
     }
 }
