@@ -38,8 +38,7 @@ class FighterController: UITableViewController, UITextFieldDelegate {
         
     }
     @IBAction func okButtonAction(_ sender: Any) {
-        
-        //var fighter = Fighter(name: nameField.text!, age: <#T##Int#>, height: <#T##Double#>, weight: <#T##Double#>, fights: <#T##Int#>, wins: <#T##Int#>)
-        
+        let fighter = Fighter(name: nameField.text!, age: ageField.text!, height: heightField.text!, weight: weightField.text!, fights: fightsField.text!, wins: winsField.text!)
+        self.fighter = fighter
     }
 }

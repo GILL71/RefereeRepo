@@ -10,13 +10,13 @@ import Foundation
 
 class Fighter {
     let name: String
-    var age: Int
-    var height: Double
-    var weight: Double
-    var fights: Int
-    var wins: Int
+    var age: String//Int
+    var height: String//Double
+    var weight: String//Double
+    var fights: String//Int
+    var wins: String//Int
     
-    init(name: String, age: Int, height: Double, weight: Double, fights: Int, wins: Int) {
+    init(name: String, age: String, height: String, weight: String, fights: String, wins: String) {
         self.name = name
         self.age = age
         self.height = height
