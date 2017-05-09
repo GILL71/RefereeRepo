@@ -10,17 +10,21 @@ import UIKit
 
 class StatsController: UITableViewController {
     
-    var fightMarksByFirstReferee: [Report] = []
-    let testNum = 25
+    var reports = [Report]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        for i in 0..<testNum {
-            let report = Report.randomReport()
-            fightMarksByFirstReferee.append(report)
-        }
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super .viewDidAppear(animated)
+        let fightVC = self.tabBarController?.viewControllers?[1] as! FightController
+        reports = fightVC.reportArray
         
-        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        for r in reports {
+            print("\(String(describing: r.fullReport!)) aasasasa \(String(describing: r.time!))")
+        }
+        self.tableView.reloadData()
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -28,16 +32,35 @@ class StatsController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return fightMarksByFirstReferee.count
+        if reports.count == 0 {
+            return 1
+        } else {
+            return reports.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-     
-        cell.textLabel?.text = "\(fightMarksByFirstReferee[indexPath.row].refereeNum) referee set \(fightMarksByFirstReferee[indexPath.row].mark) point"
-        cell.textLabel?.textColor = fightMarksByFirstReferee[indexPath.row].fighterColor
-    
+        
+        if reports.count == 0 {
+            cell.textLabel?.text = "Нет зафиксированных событий"
+            cell.textLabel?.textColor = UIColor.black
+            cell.textLabel?.font = UIFont.systemFont(ofSize: 14)
+            cell.detailTextLabel?.text = ""
+            return cell
+        }
+        
+        cell.textLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+        cell.detailTextLabel?.font = UIFont.italicSystemFont(ofSize: 9)
+        
+        cell.detailTextLabel?.text = "\(String(describing: reports[indexPath.row].time!))"
+        cell.textLabel?.text = "\(String(describing: reports[indexPath.row].fullReport!))"
+        if reports[indexPath.row].fighterColor == "B" {
+            cell.textLabel?.textColor = UIColor.blue
+        } else {
+            cell.textLabel?.textColor = UIColor.red
+        }
         return cell
     }
 }

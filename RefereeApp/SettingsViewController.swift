@@ -13,26 +13,46 @@ class SettingsViewController: UITableViewController {
     
     @IBOutlet weak var connectionSwithcer: UISwitch!
     @IBOutlet weak var colorControl: UISegmentedControl!
+    var defaults = UserDefaults.standard
     
     override func viewDidLoad() {
         super.viewDidLoad()
         colorControl.tintColor = UIColor.blue
         connectionSwithcer.isOn = false
+        defaults.set("1", forKey: "referee")
+        defaults.set("B", forKey: "color")
+        self.tabBarController?.tabBar.items?[1].isEnabled = false
+        self.tabBarController?.tabBar.items?[2].isEnabled = false
+    }
+    
+    @IBAction func refereeChanged(_ sender: UISegmentedControl) {
+        
+        if sender.selectedSegmentIndex == 0 {
+            defaults.set("1", forKey: "referee")
+        } else {
+            defaults.set("2", forKey: "referee")
+        }
     }
     
     @IBAction func switcherChange(_ sender: UISwitch) {
         if connectionSwithcer.isOn {
             SocketIOManager.sharedInstance.establishConnection()
+            self.tabBarController?.tabBar.items?[1].isEnabled = true
+            self.tabBarController?.tabBar.items?[2].isEnabled = true
         } else {
             SocketIOManager.sharedInstance.closeConnection()
+            self.tabBarController?.tabBar.items?[1].isEnabled = false
+            self.tabBarController?.tabBar.items?[2].isEnabled = false
         }
     }
     
     @IBAction func colorChanged(_ sender: Any) {
         if colorControl.selectedSegmentIndex == 0 {
             colorControl.tintColor = UIColor.blue
+            defaults.set("B", forKey: "color")
         } else {
             colorControl.tintColor = UIColor.red
+            defaults.set("R", forKey: "color")
         }
     }
     

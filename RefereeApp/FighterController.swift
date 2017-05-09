@@ -8,32 +8,38 @@
 
 import UIKit
 
-class FighterController: UITableViewController {
+class FighterController: UITableViewController, UITextFieldDelegate {
     
-   
-    @IBOutlet weak var nameLabel: UILabel!
-    @IBOutlet weak var ageLabel: UILabel!
-    @IBOutlet weak var heightLabel: UILabel!
-    @IBOutlet weak var weightLabel: UILabel!
-    @IBOutlet weak var fightsLabel: UILabel!
-    @IBOutlet weak var winsLabel: UILabel!
-    @IBOutlet weak var atLabel: UILabel!
+    var fighter: Fighter?
     
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var ageField: UITextField!
+    @IBOutlet weak var heightField: UITextField!
+    @IBOutlet weak var weightField: UITextField!
+    @IBOutlet weak var fightsField: UITextField!
+    @IBOutlet weak var winsField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let testFighter = Fighter(name: "Alan Kasaev", age: 30, height: 170, weight: 75, fights: 10, wins: 2, attachment: "")
-        
-        nameLabel.text = testFighter.name
-        ageLabel.text =  String(testFighter.age)
-        heightLabel.text = String(testFighter.height)
-        weightLabel.text = String(testFighter.weight)
-        fightsLabel.text = String(testFighter.fights)
-        winsLabel.text = String(testFighter.wins)
-        atLabel.text = testFighter.attachment
-        
-        
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        nameField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        
+        return true
+    }
+    
+    func textFieldDidChange(_ textField: UITextField) {
+        
+    }
+    @IBAction func okButtonAction(_ sender: Any) {
+        
+        //var fighter = Fighter(name: nameField.text!, age: <#T##Int#>, height: <#T##Double#>, weight: <#T##Double#>, fights: <#T##Int#>, wins: <#T##Int#>)
+        
+    }
 }
