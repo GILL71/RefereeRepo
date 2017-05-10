@@ -37,7 +37,7 @@ class Report {
         return fullReport
     }
     
-    func makeReport(with time: String, and serverTime: String) {
+    func makeReport(){//(with time: String, and serverTime: String) {
         if self.refereeNum == "1" {
             self.fullReport! += "Первый судья ставит"
         } else {
@@ -53,7 +53,7 @@ class Report {
         } else {
             self.fullReport! += " синему бойцу"
         }
-        
+        /*
         let dateString = time //"Thu, 22 Oct 2015 07:45:17 +0000" "2017-5-9 14:17:17"
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "yyyy-M-d hh:mm:ss"//"EEE, dd MMM yyyy hh:mm:ss +zzzz"
@@ -66,7 +66,6 @@ class Report {
         
         dateFormatter.dateFormat = "mm:ss"
         
-        self.serverTime = dateFormatter.string(from: dateObj!)
+        self.serverTime = dateFormatter.string(from: dateObj!)*/
     }
- 
 }

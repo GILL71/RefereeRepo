@@ -52,10 +52,15 @@ class FightController: UIViewController {
     }
     
     @IBAction func stopStartAction(_ sender: UIButton) {
+        SocketIOManager.sharedInstance.sendMessage(message: (sender.titleLabel?.text!)!, withNickname: "Michael")
+        //stopStartFunction()
+    }
+    
+    func stopStartFunction() {
         if timer != nil {
             self.tabBarController?.tabBar.items?[0].isEnabled = true
             self.tabBarController?.tabBar.items?[2].isEnabled = true
-            sender.setTitle("Start", for: .normal)
+            startButton.setTitle("Start", for: .normal)
             onePointButton.isEnabled = false
             twoPointsButton.isEnabled = false
             reset.isEnabled = true
@@ -65,7 +70,7 @@ class FightController: UIViewController {
         } else {
             self.tabBarController?.tabBar.items?[0].isEnabled = false
             self.tabBarController?.tabBar.items?[2].isEnabled = false
-            sender.setTitle("Stop", for: .normal)
+            startButton.setTitle("Stop", for: .normal)
             onePointButton.isEnabled = true
             twoPointsButton.isEnabled = true
             reset.isEnabled = false
@@ -98,15 +103,21 @@ class FightController: UIViewController {
         let report = Report.init(refNum: "\(message[0])", color: "\(message[1])", mark: "\(message[2])")
         
         if message == "Stop" {
-            //report.time
+            report.fullReport = "Stop"
+            report.serverTime = time
+            self.stopStartFunction()
+            //self.stopStartAction(nil)
         } else if message == "Start" {
-            //let report = Report.init(refNum: "-", color: "-", mark: "-")
+            report.fullReport = "Start"
+            report.serverTime = time
+            self.stopStartFunction()
+            //self.stopStartAction(nil)
         } else {
-            //let report = Report.init(refNum: "\(message[0])", color: "\(message[1])", mark: "\(message[2])")
+            report.makeReport()//(with: stopwatchDisplay.text!, and: time)
+            report.serverTime = time
+            report.time = stopwatchDisplay.text!
         }
         
-        report.makeReport(with: time, and: stopwatchDisplay.text!)
-        report.time = stopwatchDisplay.text!
         self.reportArray.append(report)
     }
 }

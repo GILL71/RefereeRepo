@@ -40,5 +40,6 @@ class FighterController: UITableViewController, UITextFieldDelegate {
     @IBAction func okButtonAction(_ sender: Any) {
         let fighter = Fighter(name: nameField.text!, age: ageField.text!, height: heightField.text!, weight: weightField.text!, fights: fightsField.text!, wins: winsField.text!)
         self.fighter = fighter
+        //print("\(fighter.age) + \(fighter.name) + \(fighter.wins)")
     }
 }
