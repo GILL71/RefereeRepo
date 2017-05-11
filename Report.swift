@@ -48,7 +48,7 @@ class Report {
         } else {
             self.fullReport! += " два балла"
         }
-        if self.mark == "R" {
+        if self.fighterColor == "R" {
             self.fullReport! += " красному бойцу"
         } else {
             self.fullReport! += " синему бойцу"
